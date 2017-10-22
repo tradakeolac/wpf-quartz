@@ -1,0 +1,35 @@
+﻿<Window x:Class="WpfWaitingOrder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfWaitingOrder"
+        xmlns:model="clr-namespace:WpfWaitingOrder.Models"
+        mc:Ignorable="d"
+        x:Name="window"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+        <model:OrdersViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid HorizontalAlignment="Left" Height="301" Margin="10,10,0,0" DataContext="{Binding ElementName=window, Path=DataContext}" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <ItemsControl x:Name="tStack" Grid.Row="0" ItemsSource="{Binding Orders}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=Name}" Background="{Binding Path=State.Color}"></TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Grid.Row="2" Width="100" HorizontalAlignment="Center" Command="{Binding AddNewOrderCommand}">Add New Order</Button>
+        </Grid>
+    </Grid>
+</Window>
